@@ -3,7 +3,9 @@ var express = require('express'),
   path = require('path'),
   app = express(),
   twitterWorker = require('./twitter.js'),
-  trackedWords = [];
+  trackedWords = [],
+  redis = require('redis'),
+  client = redis.createClient();
 
 app.configure(function () {
   app.use(express.static(path.join(__dirname, 'public')));
@@ -20,9 +22,10 @@ app.get("/", function (req, res) {
 
 // List of tracked words
 trackedWords = [
-  { word: "good", type: "happy" },
+  { word: "great", type: "happy" },
   { word: "best", type: "happy" },
-  { word: "bad", type: "sad" }
+  { word: "bad", type: "sad" },
+  { word: "worst", type: "sad" }
   ];
 
 // Start the worker and pass the words
@@ -44,15 +47,19 @@ app.get("/happy.json", function  (req, res) {
 
 // Route that provides the count of happy words used
 app.get("/happyCount.json", function  (req, res) {
-  var count, i;
+  var jsonObject;
 
-  for (i = 0; i < trackedWords.length; i++) {
-    if (trackedWords[i].type === "happy") {
-      
+  client.get("happyCount", function (err, count) {
+    if (err !== null) {
+      console.log("Error: " + err);
+    } else {
+      jsonObject = {
+        "happyCount": count
+      };
+
+      res.json(jsonObject);
     }
-  }
-
-  res.json(count);
+  });  
 });
 
 // Route that provides a list of sad word objects
@@ -70,3 +77,18 @@ app.get("/sad.json", function  (req, res) {
 });
 
 // Route that provides the count of sad words used
+app.get("/sadCount.json", function  (req, res) {
+  var jsonObject;
+
+  client.get("sadCount", function (err, count) {
+    if (err !== null) {
+      console.log("Error: " + err);
+    } else {
+      jsonObject = {
+        "sadCount": count
+      };
+
+      res.json(jsonObject);
+    }
+  });  
+});
