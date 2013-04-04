@@ -1,22 +1,28 @@
-var main = function () {
-  var happyCount = 0,
-    sadCount = 0;
+/*jslint indent:2, plusplus: true*/
+/*global jQuery*/
+(function($) {
+  'use strict';
 
-  $.getJSON("/happyCount.json", function (happyCountData) {
-    $.getJSON("/sadCount.json", function (sadCountData) {
-      happyCount = happyCountData.happyCount;
-      sadCount = sadCountData.sadCount;
+  var main = function () {
+    var happyCount = 0,
+      sadCount = 0;
 
-      $('body').append("<br />happy " + happyCount);
-      $('body').append("<br />sad " + sadCount);
+    $.getJSON("/happyCount.json", function (happyCountData) {
+      $.getJSON("/sadCount.json", function (sadCountData) {
+        happyCount = happyCountData.happyCount;
+        sadCount = sadCountData.sadCount;
 
-      if (happyCount >= sadCount) {
-        $('.feel').html(":D");      
-      } else {
-        $('.feel').html(":(");
-      }
+        $('body').append("<br />happy " + happyCount);
+        $('body').append("<br />sad " + sadCount);
+
+        if (happyCount >= sadCount) {
+          $('.feel').html(":D");
+        } else {
+          $('.feel').html(":(");
+        }
+      });
     });
-  });
-};
+  };
 
-$(document).ready(main);
+  $(function () { main(); });
+}(jQuery));
