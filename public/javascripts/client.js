@@ -1,7 +1,22 @@
 var main = function () {
-    $.getJSON("/counts.json", function (response) {
-        $("body").append("<p>awesome:"+response.awesome+"</p>");
+  var happyCount = 0,
+    sadCount = 0;
+
+  $.getJSON("/happyCount.json", function (happyCountData) {
+    $.getJSON("/sadCount.json", function (sadCountData) {
+      happyCount = happyCountData.happyCount;
+      sadCount = sadCountData.sadCount;
+
+      $('body').append("<br />happy " + happyCount);
+      $('body').append("<br />sad " + sadCount);
+
+      if (happyCount >= sadCount) {
+        $('.feel').html(":D");      
+      } else {
+        $('.feel').html(":(");
+      }
     });
+  });
 };
 
 $(document).ready(main);
