@@ -15,7 +15,7 @@
         if (happyCount >= sadCount) {
           $('.feel').html('<img src="images/happy.jpg" alt="Happy" />');
         } else {
-          $('.feel').html('<img src="images/happy.jpg" alt="Sad" />');
+          $('.feel').html('<img src="images/sad.jpg" alt="Sad" />');
         }
       });
     });
