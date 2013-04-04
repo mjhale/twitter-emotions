@@ -12,13 +12,10 @@
         happyCount = happyCountData.happyCount;
         sadCount = sadCountData.sadCount;
 
-        $('body').append("<br />happy " + happyCount);
-        $('body').append("<br />sad " + sadCount);
-
         if (happyCount >= sadCount) {
-          $('.feel').html(":D");
+          $('.feel').html('<img src="images/happy.jpg" alt="Happy" />');
         } else {
-          $('.feel').html(":(");
+          $('.feel').html('<img src="images/happy.jpg" alt="Sad" />');
         }
       });
     });
