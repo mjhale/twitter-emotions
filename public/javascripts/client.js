@@ -9,8 +9,8 @@
 
     $.getJSON("/happyCount.json", function (happyCountData) {
       $.getJSON("/sadCount.json", function (sadCountData) {
-        happyCount = happyCountData.happyCount;
-        sadCount = sadCountData.sadCount;
+        happyCount = Number(happyCountData.happyCount);
+        sadCount = Number(sadCountData.sadCount);
 
         if (happyCount >= sadCount) {
           $('.feel').html('<img src="images/happy.jpg" alt="Happy" />');
