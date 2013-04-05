@@ -1,4 +1,13 @@
 body {
   background-color: #D9D7C5;
+  color: #2F3B40;
   text-align: center;
+}
+
+h1 {
+  color: #731717;
+}
+
+h3 { 
+  color: #59352D;
 }

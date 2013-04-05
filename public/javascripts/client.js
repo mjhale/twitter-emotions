@@ -19,6 +19,17 @@
         }
       });
     });
+
+    $.getJSON("/happy.json", function (happyData) {
+      $.getJSON("/sad.json", function (sadData) {
+        $.each(happyData, function () {
+          $('.happy-words').append(this.word + ' ');
+        });
+        $.each(sadData, function () {
+          $('.sad-words').append(this.word + ' ');
+        });
+      });
+    });
   };
 
   $(function () { main(); });
